@@ -1,0 +1,9 @@
+{
+  "state_dir": "/var/apps/video-dedupe/var",
+  "export_dir": "/vol1/media/video-dedupe/data",
+  "roots": [
+    {"id": "movies", "path": "/vol1/media/movies", "role": "cleanup", "exclude": []},
+    {"id": "backup", "path": "/vol1/media/backup", "role": "reference", "exclude": []}
+  ],
+  "probe": {}
+}

@@ -1,0 +1,57 @@
+#!/bin/bash
+APP_DIR="$TRIM_APPDEST"
+CFG="$TRIM_PKGETC/config.json"
+PY=/var/apps/python312/target/bin/python3
+PID_FILE="$TRIM_PKGVAR/webui.pid"
+LOG_FILE="$TRIM_PKGVAR/webui.log"
+SOCKET_PATH="$TRIM_APPDEST/app.sock"
+LOG="${TRIM_TEMP_LOGFILE:-/dev/null}"
+
+status_app() {
+  [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null
+}
+
+start_app() {
+  if status_app; then exit 0; fi
+  if [ ! -x "$PY" ]; then
+    echo '缺少飞牛 Python 3.12 运行时。' > "$LOG"
+    exit 1
+  fi
+  # 配置从访问权限授权派生；每次启动前刷新，授权变更重启即生效。
+  "$PY" -X utf8 "$APP_DIR/videodedupe.py" fpk-setup >>"$LOG_FILE" 2>&1 || true
+  if [ ! -f "$CFG" ]; then
+    echo '配置不存在；请重新运行安装或配置向导。' > "$LOG"
+    exit 1
+  fi
+  cd "$APP_DIR" || exit 1
+  nohup "$PY" -X utf8 "$APP_DIR/webui.py" --config "$CFG" --socket "$SOCKET_PATH" >>"$LOG_FILE" 2>&1 &
+  echo $! > "$PID_FILE"
+  for _ in $(seq 1 100); do
+    [ -S "$SOCKET_PATH" ] && exit 0
+    status_app || break
+    sleep 0.2
+  done
+  echo '服务启动超时，请查看应用日志 webui.log。' > "$LOG"
+  exit 1
+}
+
+stop_app() {
+  if [ -f "$PID_FILE" ]; then
+    PID=$(cat "$PID_FILE")
+    kill -TERM "$PID" 2>/dev/null || true
+    for _ in $(seq 1 100); do
+      kill -0 "$PID" 2>/dev/null || break
+      sleep 0.1
+    done
+    kill -KILL "$PID" 2>/dev/null || true
+  fi
+  rm -f "$PID_FILE" "$SOCKET_PATH"
+  exit 0
+}
+
+case "$1" in
+  start) start_app ;;
+  stop) stop_app ;;
+  status) status_app && exit 0; exit 3 ;;
+  *) echo "unknown command: $1" > "$LOG"; exit 1 ;;
+esac

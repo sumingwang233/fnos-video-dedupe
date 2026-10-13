@@ -1,0 +1,8 @@
+[
+  {
+    "stepTitle": "保留视频与数据",
+    "items": [
+      {"type": "text", "field": "wizard_uninstall_note", "label": "卸载仅移除应用与依赖环境，不删除任何视频、扫描数据库或共享目录中的审计报告。请在系统卸载选项中保留数据。", "initValue": "保留数据"}
+    ]
+  }
+]

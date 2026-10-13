@@ -1,0 +1,8 @@
+[
+  {
+    "stepTitle": "配置",
+    "items": [
+      {"type": "text", "field": "wizard_config_note", "label": "扫描目录在 系统设置→应用→访问权限 中管理（读写=可清理，只读=仅参考），修改后重启应用生效。", "initValue": "确定"}
+    ]
+  }
+]

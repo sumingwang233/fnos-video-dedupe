@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="icon-title">
+  <title id="icon-title">重复文件清理 dupclean — 应用图标母版</title>
+  <!-- 载体：圆角方（fnOS 应用网格） -->
+  <rect width="512" height="512" rx="112" fill="#1D4ED8"/>
+  <!-- 后帧：同一枚视频帧，淡一档，表达“重复副本” -->
+  <rect x="180" y="110" width="232" height="232" rx="54" fill="#FFFFFF" fill-opacity="0.30"/>
+  <!-- 前帧：实心视频帧 -->
+  <rect x="100" y="170" width="232" height="232" rx="54" fill="#FFFFFF"/>
+  <!-- 负空间播放三角：只留一份 -->
+  <path d="M196 232 L196 340 L286 286 Z" fill="#1D4ED8"/>
+</svg>

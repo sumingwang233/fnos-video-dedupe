@@ -1,0 +1,14 @@
+{
+  ".url": {
+    "video-dedupe.main": {
+      "title": "视频查重助手",
+      "icon": "images/icon_{0}.png",
+      "type": "iframe",
+      "protocol": "",
+      "gatewayPrefix": "/app/video-dedupe",
+      "gatewaySocket": "app.sock",
+      "url": "/app/video-dedupe",
+      "allUsers": false
+    }
+  }
+}

@@ -1,0 +1,3 @@
+#!/bin/bash
+rm -f "$TRIM_APPDEST/app.sock" "$TRIM_PKGVAR/webui.pid"
+exit 0

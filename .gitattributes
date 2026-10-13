@@ -1,0 +1,7 @@
+# fpk 生命周期脚本是 bash，必须 LF；CRLF 会让其在 NAS 上解析失败
+fpk/cmd/** text eol=lf
+fpk/app/bin/** text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf

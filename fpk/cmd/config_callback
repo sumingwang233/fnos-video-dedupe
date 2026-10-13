@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /var/apps/python312/target/bin/python3 "$TRIM_APPDEST/videodedupe.py" fpk-setup

@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+APP_DIR="$TRIM_APPDEST"
+PY=/var/apps/python312/target/bin/python3
+LOG="${TRIM_TEMP_LOGFILE:-/dev/null}"
+PKG_LOG="${TRIM_PKGVAR:-/tmp}/install.log"
+mkdir -p "${TRIM_PKGVAR:-/tmp}" 2>/dev/null || true
+mkdir -p "${TRIM_PKGETC:-/tmp/etc}" 2>/dev/null || true
+if [ ! -x "$PY" ]; then
+  echo '缺少飞牛 Python 3.12 运行时；请在应用中心重试安装。' > "$LOG"
+  exit 1
+fi
+if [ ! -x "$APP_DIR/bin/ffmpeg" ] || [ ! -x "$APP_DIR/bin/ffprobe" ]; then
+  echo '应用包缺少内置 ffmpeg/ffprobe（bin/ 目录），请使用官方发布完整安装包。' > "$LOG"
+  exit 1
+fi
+if ! "$PY" -c "import sys; sys.path.insert(0, '$APP_DIR/site-packages'); import numpy" >>"$PKG_LOG" 2>&1; then
+  echo '内置 numpy 自检失败；详见应用数据目录 install.log，请重新安装完整安装包。' > "$LOG"
+  exit 1
+fi
+if ! "$PY" "$APP_DIR/videodedupe.py" fpk-setup >>"$PKG_LOG" 2>&1; then
+  echo '配置初始化失败；详见应用数据目录 install.log。' > "$LOG"
+  exit 1
+fi

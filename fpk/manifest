@@ -1,0 +1,14 @@
+appname=video-dedupe
+version=3.0.0
+display_name=视频查重助手
+desc=多目录视频查重、人工审核与安全清理。原生 SHA-256 完全重复与 pHash 视觉相似扫描，统一网关界面；默认预演，显式确认后才执行删除。
+source=thirdparty
+platform=x86
+maintainer=Video Dedupe contributors
+distributor=Video Dedupe contributors
+desktop_uidir=ui
+desktop_applaunchname=video-dedupe.main
+install_dep_apps=python312
+os_min_version=1.1.3100
+ctl_stop=true
+disable_authorization_path=false

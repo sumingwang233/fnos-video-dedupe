@@ -1,0 +1,7 @@
+.tools/
+dist/
+.zcode/
+fpk/ICON.PNG
+fpk/ICON_256.PNG
+assets/icon/
+*.fpk
